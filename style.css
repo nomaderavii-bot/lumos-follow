@@ -1,241 +1,418 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+/* ==========================================================
+   LUMOS FOLLOW V3
+   STYLE.CSS
+   PARTE 1
+========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+
+--bg:#090015;
+--bg2:#12002d;
+--purple:#7d3cff;
+--purple2:#b16cff;
+--gold:#ffd86b;
+--white:#ffffff;
+--glass:rgba(255,255,255,.08);
+--glass2:rgba(255,255,255,.12);
+
 }
 
-body {
-    background: #05010a;
-    color: white;
-    overflow-x: hidden;
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
 }
 
-/* ===== FUNDO MÁGICO ===== */
+html{
 
-.background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top, #1b0033, #000);
-    z-index: -3;
+scroll-behavior:smooth;
+
 }
 
-.fog {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url("https://i.imgur.com/3ZQ3Z9X.png");
-    opacity: 0.08;
-    animation: fogMove 20s linear infinite;
+body{
+
+font-family:Poppins,sans-serif;
+background:radial-gradient(circle at top,#2d005a,#090015 65%);
+color:white;
+overflow-x:hidden;
+min-height:100vh;
+
 }
 
-@keyframes fogMove {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-200px); }
+/* ===========================
+FUNDO
+===========================*/
+
+.background{
+
+position:fixed;
+inset:0;
+overflow:hidden;
+z-index:-20;
+
 }
 
-/* ===== APP ===== */
+.background::before{
 
-.app {
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
+content:"";
+position:absolute;
+width:160%;
+height:160%;
+left:-30%;
+top:-30%;
+
+background:
+radial-gradient(circle,#5d1fff55 0%,transparent 60%),
+radial-gradient(circle,#8d55ff33 0%,transparent 70%),
+radial-gradient(circle,#ffcc6630 0%,transparent 70%);
+
+animation:bgMove 18s linear infinite;
+
 }
 
-/* ===== HEADER ===== */
+@keyframes bgMove{
 
-.header {
-    text-align: center;
-    margin-top: 20px;
+0%{
+
+transform:rotate(0deg) scale(1);
+
 }
 
-.header .logo {
-    font-size: 50px;
-    animation: glow 2s infinite alternate;
+100%{
+
+transform:rotate(360deg) scale(1.2);
+
 }
 
-.header h1 {
-    font-family: "Cinzel", serif;
-    font-size: 32px;
 }
 
-.header h1 span {
-    color: #b06cff;
+/* ===========================
+ESTRELAS
+===========================*/
+
+.stars{
+
+position:absolute;
+inset:0;
+background-image:
+
+radial-gradient(#fff 1px,transparent 1px),
+radial-gradient(#fff 1px,transparent 1px),
+radial-gradient(#fff 1px,transparent 1px);
+
+background-size:
+
+180px 180px,
+250px 250px,
+320px 320px;
+
+background-position:
+
+20px 50px,
+100px 120px,
+180px 220px;
+
+animation:starsMove 60s linear infinite;
+
+opacity:.7;
+
 }
 
-.header p {
-    font-size: 12px;
-    opacity: 0.7;
+@keyframes starsMove{
+
+from{
+
+transform:translateY(0);
+
 }
 
-/* ===== CARD ===== */
+to{
 
-.card {
-    margin-top: 30px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(176, 108, 255, 0.2);
+transform:translateY(-400px);
+
 }
 
-.card h2 {
-    margin-bottom: 15px;
 }
 
-label {
-    font-size: 12px;
-    opacity: 0.7;
+/* ===========================
+NEBLINA
+===========================*/
+
+.fog{
+
+position:absolute;
+inset:0;
+
+background:
+
+radial-gradient(circle,#ffffff10 0%,transparent 70%),
+radial-gradient(circle,#ffffff08 0%,transparent 60%);
+
+filter:blur(60px);
+
+animation:fog 16s ease-in-out infinite;
+
+opacity:.5;
+
 }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 15px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background: rgba(255,255,255,0.08);
-    color: white;
+@keyframes fog{
+
+0%{
+
+transform:translate(-80px,-20px);
+
 }
 
-.warning {
-    font-size: 11px;
-    background: rgba(255,0,100,0.1);
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 15px;
+50%{
+
+transform:translate(80px,30px);
+
 }
 
-/* ===== BOTÃO ===== */
+100%{
 
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(45deg, #7b2ff7, #f107a3);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+transform:translate(-80px,-20px);
+
 }
 
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #b06cff;
 }
 
-/* ===== RESULTADOS ===== */
+/* ===========================
+PARTÍCULAS
+===========================*/
 
-.result {
-    margin-top: 20px;
+.particles{
+
+position:absolute;
+inset:0;
+pointer-events:none;
+
 }
 
-.hidden {
-    display: none;
+.particles span{
+
+position:absolute;
+width:4px;
+height:4px;
+border-radius:50%;
+background:white;
+
+animation:particle 10s linear infinite;
+
 }
 
-.stats {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
+@keyframes particle{
+
+0%{
+
+opacity:0;
+transform:translateY(40px) scale(.3);
+
 }
 
-.stats div {
-    text-align: center;
+20%{
+
+opacity:1;
+
 }
 
-.stats h3 {
-    font-size: 22px;
-    color: #b06cff;
+100%{
+
+opacity:0;
+transform:translateY(-900px) scale(1.5);
+
 }
 
-/* ===== LISTA ===== */
-
-.user {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-    transition: 0.4s;
 }
 
-/* ===== MAGIA AO REMOVER ===== */
+/* ===========================
+OBJETOS FLUTUANDO
+===========================*/
 
-.disappear {
-    animation: vanish 0.8s forwards;
+.magic-object{
+
+position:absolute;
+font-size:34px;
+opacity:.18;
+
+animation:floatMagic 18s ease-in-out infinite;
+
+user-select:none;
+
 }
 
-@keyframes vanish {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0px);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.2);
-        filter: blur(4px);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0);
-        filter: blur(10px);
-    }
+@keyframes floatMagic{
+
+0%{
+
+transform:
+translateY(0)
+rotate(0);
+
 }
 
-/* ===== OVERLAY MAGIA ===== */
+50%{
 
-.overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+transform:
+translateY(-30px)
+rotate(12deg);
+
 }
 
-.overlay.hidden {
-    display: none;
+100%{
+
+transform:
+translateY(0)
+rotate(0);
+
 }
 
-.wand {
-    font-size: 60px;
-    animation: float 2s infinite ease-in-out;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+.instagram1{
+
+top:12%;
+left:8%;
+
 }
 
-#magicText {
-    font-family: "Cinzel", serif;
-    font-size: 28px;
-    margin-top: 10px;
-    color: #b06cff;
-    text-shadow: 0 0 20px #b06cff;
+.instagram2{
+
+top:70%;
+right:8%;
+
 }
 
-.loading {
-    width: 40px;
-    height: 40px;
-    border: 3px solid transparent;
-    border-top: 3px solid #b06cff;
-    border-radius: 50%;
-    margin-top: 15px;
-    animation: spin 1s linear infinite;
+.wand1{
+
+top:22%;
+right:10%;
+
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+.wand2{
+
+bottom:12%;
+left:14%;
+
+}
+
+.hat{
+
+top:8%;
+left:45%;
+
+font-size:46px;
+
+}
+
+.book{
+
+bottom:10%;
+right:18%;
+
+}
+
+.owl{
+
+top:58%;
+left:5%;
+
+}
+
+.crystal{
+
+bottom:22%;
+right:42%;
+
+}
+
+/* ===========================
+APP
+===========================*/
+
+.app{
+
+width:min(95%,520px);
+
+margin:auto;
+
+padding:35px 18px 80px;
+
+position:relative;
+
+}
+
+/* ===========================
+HEADER
+===========================*/
+
+.header{
+
+text-align:center;
+
+margin-bottom:28px;
+
+}
+
+.logo{
+
+font-size:70px;
+
+filter:drop-shadow(0 0 15px #b16cff);
+
+animation:logoFloat 4s ease-in-out infinite;
+
+}
+
+@keyframes logoFloat{
+
+50%{
+
+transform:translateY(-12px);
+
+}
+
+}
+
+.header h1{
+
+font-family:Cinzel,serif;
+
+font-size:42px;
+
+letter-spacing:3px;
+
+color:var(--gold);
+
+text-shadow:
+
+0 0 10px #ffdd88,
+0 0 25px #a04cff;
+
+}
+
+.header h1 span{
+
+display:block;
+
+color:#d8b6ff;
+
+}
+
+.header p{
+
+margin-top:10px;
+
+font-size:14px;
+
+opacity:.8;
+
+line-height:22px;
+
 }
