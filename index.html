@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lumis Follow</title>
+<title>LUMOS FOLLOW</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 
@@ -14,107 +21,275 @@
 
 <body>
 
-<!-- FUNDO MÁGICO -->
+<!-- ===========================
+FUNDO MÁGICO
+=========================== -->
+
 <div class="background">
-    <div class="fog"></div>
-    <div class="stars"></div>
-    <div class="particles"></div>
+
+<div class="stars"></div>
+
+<div class="fog"></div>
+
+<div class="particles">
+
+<span style="left:5%;animation-delay:0s;"></span>
+<span style="left:18%;animation-delay:2s;"></span>
+<span style="left:30%;animation-delay:4s;"></span>
+<span style="left:42%;animation-delay:1s;"></span>
+<span style="left:55%;animation-delay:5s;"></span>
+<span style="left:68%;animation-delay:3s;"></span>
+<span style="left:80%;animation-delay:6s;"></span>
+<span style="left:92%;animation-delay:2.5s;"></span>
+
 </div>
 
-<!-- APP PRINCIPAL -->
+<!-- OBJETOS FLUTUANDO -->
+
+<div class="magic-object instagram1">📸</div>
+
+<div class="magic-object instagram2">📸</div>
+
+<div class="magic-object wand1">🪄</div>
+
+<div class="magic-object wand2">🪄</div>
+
+<div class="magic-object hat">🎩</div>
+
+<div class="magic-object book">📖</div>
+
+<div class="magic-object owl">🦉</div>
+
+<div class="magic-object crystal">💎</div>
+
+</div>
+
+<!-- ===========================
+APP
+=========================== -->
+
 <main class="app">
 
-    <!-- HEADER -->
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
-            ✨
-        </div>
+<div class="logo">
 
-        <h1>Lumis <span>Follow</span></h1>
+🪄
 
-        <p>Descubra os segredos escondidos no seu Instagram</p>
+</div>
 
-    </header>
+<h1>
 
-    <!-- CARD PRINCIPAL -->
-    <section class="card">
+LUMOS
 
-        <h2>✨ Revelar Perfil</h2>
+<span>
 
-        <label>@ Usuário</label>
-        <input type="text" id="username" placeholder="@seuusuario">
+FOLLOW
 
-        <label>Arquivo ZIP do Instagram</label>
-        <input type="file" id="zipFile" accept=".zip">
+</span>
 
-        <div class="warning">
-            <strong>⚠️ Atenção</strong>
-            <p>Faço a magia acontecer, mas a responsabilidade é sua.</p>
-        </div>
+</h1>
 
-        <button id="revealBtn">✨ REVELAR MAGIA</button>
+<p>
 
-    </section>
+Descubra os segredos escondidos no seu Instagram.
 
-    <!-- RESULTADOS -->
-    <section class="result hidden" id="result">
+</p>
 
-        <div class="scroll">
+</header>
 
-            <h2>✨ Lumis Follow</h2>
+<section class="card">
 
-            <div class="stats">
+<h2>
 
-                <div>
-                    <h3 id="followers">0</h3>
-                    <p>Seguidores</p>
-                </div>
+✨ Revelar Perfil
 
-                <div>
-                    <h3 id="following">0</h3>
-                    <p>Seguindo</p>
-                </div>
+</h2>
 
-                <div>
-                    <h3 id="notFollowing">0</h3>
-                    <p>Não seguem você</p>
-                </div>
+<label>
 
-            </div>
+Nome de usuário
 
-            <div class="search">
-                <input type="text" id="search" placeholder="Pesquisar usuário...">
-            </div>
+</label>
 
-            <div class="list" id="userList">
-                <!-- usuários aparecem aqui -->
-            </div>
+<input
+type="text"
+id="username"
+placeholder="@seuusuario">
 
-            <div class="actions">
-                <button id="copy">Copiar</button>
-                <button id="download">Baixar TXT</button>
-            </div>
+<label>
 
-        </div>
+Arquivo ZIP do Instagram
 
-    </section>
+</label>
+
+<input
+type="file"
+id="zipFile"
+accept=".zip">
+
+<div class="warning">
+
+<strong>
+
+⚠ Atenção
+
+</strong>
+
+<p>
+
+Faço a magia acontecer,
+mas a responsabilidade é sua.
+
+</p>
+
+</div>
+
+<button id="revealBtn">
+
+✨ REVELAR MAGIA
+
+</button>
+
+</section>
+
+<!-- ===========================
+PERGAMINHO DOS RESULTADOS
+=========================== -->
+
+<section
+class="result hidden"
+id="result">
+
+<div class="scroll">
+
+<h2>
+
+📜 Relatório Mágico
+
+</h2>
+
+<div class="stats">
+
+<div>
+
+<h3 id="followers">
+
+0
+
+</h3>
+
+<p>
+
+Seguidores
+
+</p>
+
+</div>
+
+<div>
+
+<h3 id="following">
+
+0
+
+</h3>
+
+<p>
+
+Seguindo
+
+</p>
+
+</div>
+
+<div>
+
+<h3 id="notFollowing">
+
+0
+
+</h3>
+
+<p>
+
+Não seguem você
+
+</p>
+
+</div>
+
+</div>
+
+<div class="search">
+
+<input
+type="text"
+id="search"
+placeholder="Pesquisar usuário...">
+
+</div>
+
+<div
+class="list"
+id="userList">
+
+<!-- Lista criada pelo script -->
+
+</div>
+
+<div class="actions">
+
+<button id="copy">
+
+📋 Copiar Lista
+
+</button>
+
+<button id="download">
+
+⬇ Baixar TXT
+
+</button>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
-<!-- OVERLAY MAGIA -->
-<div class="overlay hidden" id="overlay">
+<!-- ===========================
+TELA DA MAGIA
+=========================== -->
 
-    <div class="wand">🪄</div>
+<div
+class="overlay hidden"
+id="overlay">
 
-    <h2 id="magicText">LUMIS</h2>
+<div class="wand">
 
-    <div class="loading"></div>
+🪄
+
+</div>
+
+<h2 id="magicText">
+
+LUMOS
+
+</h2>
+
+<div class="loading">
+
+</div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
 <script src="script.js"></script>
 
 </body>
+
 </html>
