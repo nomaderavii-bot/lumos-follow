@@ -1,1 +1,73 @@
 
+/* Lumos Follow - Versão 0.1 */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#09060f;
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.background{
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top,#8b2cf5 0%,transparent 35%),
+    radial-gradient(circle at bottom,#ff3fd2 0%,transparent 25%),
+    #09060f;
+    z-index:-1;
+}
+
+.container{
+    width:90%;
+    max-width:420px;
+    text-align:center;
+}
+
+.logo{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:42px;
+    font-weight:700;
+}
+
+h1 span{
+    color:#c55cff;
+}
+
+.subtitle{
+    margin-top:15px;
+    color:#cfcfcf;
+    line-height:1.6;
+}
+
+.upload-box{
+    margin-top:40px;
+}
+
+.upload-button{
+    display:block;
+    background:linear-gradient(90deg,#7a2cff,#ff4fd8);
+    padding:18px;
+    border-radius:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.upload-button:hover{
+    transform:scale(1.03);
+}
