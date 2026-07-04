@@ -1,24 +1,38 @@
+const app = {
+    zip: null,
+
+    data: {
+        followers: [],
+        following: [],
+        notFollowing: []
+    }
+};
+
 const zipInput = document.getElementById("zipFile");
+const revealBtn = document.getElementById("revealBtn");
 
-const followers = document.getElementById("followers");
-const following = document.getElementById("following");
-const notFollowing = document.getElementById("notFollowing");
-const list = document.getElementById("list");
+zipInput.addEventListener("change", handleZip);
+revealBtn.addEventListener("click", startMagic);
 
-zipInput.addEventListener("change", () => {
-    const file = zipInput.files[0];
-
+async function handleZip(event) {
+    const file = event.target.files[0];
     if (!file) return;
 
-    followers.textContent = "--";
-    following.textContent = "--";
-    notFollowing.textContent = "--";
+    app.zip = await JSZip.loadAsync(file);
+}
 
-    list.innerHTML = `
-        <div style="text-align:center;padding:40px;">
-            <h3>📂 ${file.name}</h3>
-            <p>Arquivo carregado com sucesso.</p>
-            <p>Em breve o Lumos Follow analisará automaticamente os dados do Instagram.</p>
-        </div>
-    `;
-});
+async function startMagic() {
+
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("hidden");
+
+    document.getElementById("magicText").innerText = "LUMIS";
+
+    await loadInstagramData();
+
+    calculateResults();
+
+    showResults();
+
+    overlay.classList.add("hidden");
+}
