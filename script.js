@@ -135,3 +135,117 @@ function removeUser(username) {
 
     document.getElementById("notFollowing").innerText = app.data.notFollowing.length;
 }
+
+async function loadInstagramData() {
+
+    const files = Object.keys(app.zip.files);
+
+    const followersFile = files.find(f =>
+        f.includes("followers") && f.endsWith(".json")
+    );
+
+    const followingFile = files.find(f =>
+        f.includes("following") && f.endsWith(".json")
+    );
+
+    if (!followersFile || !followingFile) {
+        alert("❌ ZIP do Instagram inválido ou incompleto.");
+        return;
+    }
+
+    let followersRaw, followingRaw;
+
+    try {
+        followersRaw = await app.zip.files[followersFile].async("string");
+        followingRaw = await app.zip.files[followingFile].async("string");
+    } catch (e) {
+        alert("❌ Erro ao ler arquivos do ZIP.");
+        return;
+    }
+
+    let followersJson, followingJson;
+
+    try {
+        followersJson = JSON.parse(followersRaw);
+        followingJson = JSON.parse(followingRaw);
+    } catch (e) {
+        alert("❌ Erro ao interpretar JSON.");
+        return;
+    }
+
+    app.data.followers = extractUsers(followersJson);
+    app.data.following = extractUsers(followingJson);
+}
+
+
+// ===============================
+// EXTRACT USERS (limpo e seguro)
+// ===============================
+function extractUsers(data) {
+
+    let users = [];
+
+    if (!data) return users;
+
+    try {
+        data.forEach(item => {
+
+            if (item.string_list_data) {
+                item.string_list_data.forEach(u => {
+                    if (u.value) users.push(u.value);
+                });
+            }
+
+        });
+    } catch (e) {
+        console.log("Erro extract:", e);
+    }
+
+    return users;
+}
+
+
+// ===============================
+// CALCULAR RESULTADOS
+// ===============================
+function calculateResults() {
+
+    const followers = app.data.followers;
+    const following = app.data.following;
+
+    app.data.notFollowing = [...new Set(
+        following.filter(user => !followers.includes(user))
+    )];
+
+    document.getElementById("followers").innerText = followers.length;
+    document.getElementById("following").innerText = following.length;
+    document.getElementById("notFollowing").innerText = app.data.notFollowing.length;
+}
+
+
+// ===============================
+// INICIAR MAGIA (VERSÃO FINAL)
+// ===============================
+async function startMagic() {
+
+    if (!app.zip) {
+        alert("Selecione um arquivo ZIP primeiro.");
+        return;
+    }
+
+    const overlay = document.getElementById("overlay");
+    const result = document.getElementById("result");
+
+    overlay.classList.remove("hidden");
+
+    document.getElementById("magicText").innerText = "FAZENDO A MAGIA...";
+
+    await loadInstagramData();
+    calculateResults();
+    showResults();
+
+    setTimeout(() => {
+        overlay.classList.add("hidden");
+        result.classList.remove("hidden");
+    }, 1200);
+}
