@@ -1,410 +1,117 @@
+/*==================================================
+            LUMOS FOLLOW V3
+==================================================*/
+
+// ===============================
+// DADOS DA APLICAÇÃO
+// ===============================
+
 const app = {
+
     zip: null,
 
-    data: {
-        followers: [],
-        following: [],
-        notFollowing: []
-    }
+    followers: [],
+
+    following: [],
+
+    notFollowing: []
+
 };
 
-// ELEMENTOS
+// ===============================
+// ELEMENTOS DA TELA
+// ===============================
+
 const zipInput = document.getElementById("zipFile");
 const revealBtn = document.getElementById("revealBtn");
+
 const overlay = document.getElementById("overlay");
+const magicText = document.getElementById("magicText");
+
 const result = document.getElementById("result");
 
-zipInput.addEventListener("change", handleZip);
-revealBtn.addEventListener("click", startMagic);
+const followersBox = document.getElementById("followers");
+const followingBox = document.getElementById("following");
+const notFollowingBox = document.getElementById("notFollowing");
 
-// CARREGAR ZIP
-async function handleZip(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    app.zip = await JSZip.loadAsync(file);
-}
-
-// INICIAR MAGIA
-async function startMagic() {
-
-    overlay.classList.remove("hidden");
-    document.getElementById("magicText").innerText = "LUMIS";
-
-    await loadInstagramData();
-    calculateResults();
-    showResults();
-
-    overlay.classList.add("hidden");
-    result.classList.remove("hidden");
-}
-
-// LER DADOS DO INSTAGRAM
-async function loadInstagramData() {
-
-    const files = Object.keys(app.zip.files);
-
-    const followersFile = files.find(f => f.includes("followers") && f.endsWith(".json"));
-    const followingFile = files.find(f => f.includes("following") && f.endsWith(".json"));
-
-    if (!followersFile || !followingFile) {
-        alert("ZIP inválido do Instagram.");
-        return;
-    }
-
-    const followersRaw = await app.zip.files[followersFile].async("string");
-    const followingRaw = await app.zip.files[followingFile].async("string");
-
-    const followersJson = JSON.parse(followersRaw);
-    const followingJson = JSON.parse(followingRaw);
-
-    app.data.followers = extractUsers(followersJson);
-    app.data.following = extractUsers(followingJson);
-}
-
-// EXTRAIR USERNAMES
-function extractUsers(data) {
-    let users = [];
-
-    if (!data) return users;
-
-    data.forEach(item => {
-        if (item.string_list_data) {
-            item.string_list_data.forEach(u => {
-                users.push(u.value);
-            });
-        }
-    });
-
-    return users;
-}
-
-// CALCULAR RESULTADOS
-function calculateResults() {
-
-    const followers = app.data.followers;
-    const following = app.data.following;
-
-    // quem você segue e não te segue de volta
-    app.data.notFollowing = following.filter(user => !followers.includes(user));
-
-    document.getElementById("followers").innerText = followers.length;
-    document.getElementById("following").innerText = following.length;
-    document.getElementById("notFollowing").innerText = app.data.notFollowing.length;
-}
-
-// MOSTRAR LISTA
-function showResults() {
-
-    const list = document.getElementById("userList");
-    list.innerHTML = "";
-
-    app.data.notFollowing.forEach(user => {
-
-        const div = document.createElement("div");
-        div.className = "user";
-
-        div.innerHTML = `
-            <span>${user}</span>
-            <button onclick="removeUser('${user}')">🪄 Remover</button>
-        `;
-
-        list.appendChild(div);
-    });
-}
-
-// REMOVER USUÁRIO (MAGIA)
-function removeUser(username) {
-
-    const list = document.getElementById("userList");
-
-    const items = [...list.children];
-
-    items.forEach(item => {
-        if (item.innerText.includes(username)) {
-
-            item.classList.add("disappear");
-
-            setTimeout(() => {
-                item.remove();
-            }, 800);
-        }
-    });
-
-    app.data.notFollowing = app.data.notFollowing.filter(u => u !== username);
-
-    document.getElementById("notFollowing").innerText = app.data.notFollowing.length;
-}
-
-async function loadInstagramData() {
-
-    const files = Object.keys(app.zip.files);
-
-    const followersFile = files.find(f =>
-        f.includes("followers") && f.endsWith(".json")
-    );
-
-    const followingFile = files.find(f =>
-        f.includes("following") && f.endsWith(".json")
-    );
-
-    if (!followersFile || !followingFile) {
-        alert("❌ ZIP do Instagram inválido ou incompleto.");
-        return;
-    }
-
-    let followersRaw, followingRaw;
-
-    try {
-        followersRaw = await app.zip.files[followersFile].async("string");
-        followingRaw = await app.zip.files[followingFile].async("string");
-    } catch (e) {
-        alert("❌ Erro ao ler arquivos do ZIP.");
-        return;
-    }
-
-    let followersJson, followingJson;
-
-    try {
-        followersJson = JSON.parse(followersRaw);
-        followingJson = JSON.parse(followingRaw);
-    } catch (e) {
-        alert("❌ Erro ao interpretar JSON.");
-        return;
-    }
-
-    app.data.followers = extractUsers(followersJson);
-    app.data.following = extractUsers(followingJson);
-}
-
-
-// ===============================
-// EXTRACT USERS (limpo e seguro)
-// ===============================
-function extractUsers(data) {
-
-    let users = [];
-
-    if (!data) return users;
-
-    try {
-        data.forEach(item => {
-
-            if (item.string_list_data) {
-                item.string_list_data.forEach(u => {
-                    if (u.value) users.push(u.value);
-                });
-            }
-
-        });
-    } catch (e) {
-        console.log("Erro extract:", e);
-    }
-
-    return users;
-}
-
-
-// ===============================
-// CALCULAR RESULTADOS
-// ===============================
-function calculateResults() {
-
-    const followers = app.data.followers;
-    const following = app.data.following;
-
-    app.data.notFollowing = [...new Set(
-        following.filter(user => !followers.includes(user))
-    )];
-
-    document.getElementById("followers").innerText = followers.length;
-    document.getElementById("following").innerText = following.length;
-    document.getElementById("notFollowing").innerText = app.data.notFollowing.length;
-}
-
-
-// ===============================
-// INICIAR MAGIA (VERSÃO FINAL)
-// ===============================
-async function startMagic() {
-
-    if (!app.zip) {
-        alert("Selecione um arquivo ZIP primeiro.");
-        return;
-    }
-
-    const overlay = document.getElementById("overlay");
-    const result = document.getElementById("result");
-
-    overlay.classList.remove("hidden");
-
-    document.getElementById("magicText").innerText = "FAZENDO A MAGIA...";
-
-    await loadInstagramData();
-    calculateResults();
-    showResults();
-
-    setTimeout(() => {
-        overlay.classList.add("hidden");
-        result.classList.remove("hidden");
-    }, 1200);
-}
-
-/* =====================================================
-   LUMOS FOLLOW V3
-   PARTE 1
-===================================================== */
-
-const resultBox = document.getElementById("result");
-const followersCount = document.getElementById("followers");
-const followingCount = document.getElementById("following");
-const notFollowingCount = document.getElementById("notFollowing");
 const userList = document.getElementById("userList");
+
 const searchInput = document.getElementById("search");
+
 const copyBtn = document.getElementById("copy");
+
 const downloadBtn = document.getElementById("download");
 
-let users = [];
 
-/* ==========================
-MOSTRAR RESULTADOS
-========================== */
+// ===============================
+// INICIAR
+// ===============================
 
-function showResults(){
+zipInput.addEventListener("change", loadZip);
 
-    followersCount.textContent = app.data.followers.length;
+revealBtn.addEventListener("click", startMagic);
 
-    followingCount.textContent = app.data.following.length;
+searchInput.addEventListener("input", filterUsers);
 
-    notFollowingCount.textContent = app.data.notFollowing.length;
+copyBtn.addEventListener("click", copyUsers);
 
-    users = [...app.data.notFollowing];
+downloadBtn.addEventListener("click", downloadUsers);
 
-    renderUsers(users);
 
-    resultBox.classList.remove("hidden");
+// ===============================
+// ABRIR ZIP
+// ===============================
+
+async function loadZip(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    app.zip = await JSZip.loadAsync(file);
 
 }
 
-/* ==========================
-LISTA
-========================== */
 
-function renderUsers(list){
+// ===============================
+// MAGIA
+// ===============================
 
-    userList.innerHTML = "";
+async function startMagic(){
 
-    if(list.length===0){
+    if(!app.zip){
 
-        userList.innerHTML="<p>Nenhum usuário encontrado.</p>";
+        alert("Selecione primeiro o arquivo ZIP do Instagram.");
 
         return;
 
     }
 
-    list.forEach(username=>{
+    overlay.classList.remove("hidden");
 
-        const div=document.createElement("div");
+    magicText.innerText="LUMOS";
 
-        div.className="user";
+    await readInstagram();
 
-        div.innerHTML=`
+    calculate();
 
-            <span>@${username}</span>
+    render();
 
-            <button onclick="removeUser(this,'${username}')">
+    setTimeout(()=>{
 
-                Remover
+        overlay.classList.add("hidden");
 
-            </button>
+        result.classList.remove("hidden");
 
-        `;
-
-        userList.appendChild(div);
-
-    });
+    },1800);
 
 }
 
-/* ==========================
-PESQUISAR USUÁRIOS
-========================== */
+// ===============================
+// LER ARQUIVOS DO INSTAGRAM
+// ===============================
 
-searchInput.addEventListener("input", () => {
-
-    const text = searchInput.value.toLowerCase();
-
-    const filtered = users.filter(user =>
-        user.toLowerCase().includes(text)
-    );
-
-    renderUsers(filtered);
-
-});
-
-/* ==========================
-COPIAR LISTA
-========================== */
-
-copyBtn.addEventListener("click", () => {
-
-    navigator.clipboard.writeText(users.join("\n"));
-
-    alert("Lista copiada!");
-
-});
-
-/* ==========================
-BAIXAR TXT
-========================== */
-
-downloadBtn.addEventListener("click", () => {
-
-    const blob = new Blob([users.join("\n")], {
-        type: "text/plain"
-    });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-
-    a.download = "nao-seguem-voce.txt";
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-});
-
-/* ==========================
-REMOVER COM MAGIA
-========================== */
-
-function removeUser(button, username){
-
-    const card = button.parentElement;
-
-    card.classList.add("disappear");
-
-    setTimeout(() => {
-
-        users = users.filter(u => u !== username);
-
-        renderUsers(users);
-
-        notFollowingCount.textContent = users.length;
-
-    }, 900);
-
-}
-
-/* ==========================================
-   LEITURA DO ZIP DO INSTAGRAM
-========================================== */
-
-async function loadInstagramData() {
+async function readInstagram(){
 
     const files = Object.keys(app.zip.files);
 
@@ -418,39 +125,40 @@ async function loadInstagramData() {
         file.endsWith(".json")
     );
 
-    if (!followersFile || !followingFile) {
+    if(!followersFile || !followingFile){
 
-        alert("Não foi possível encontrar os arquivos do Instagram.");
+        alert("Não encontrei os arquivos do Instagram dentro do ZIP.");
 
-        return;
+        throw new Error("Arquivos não encontrados");
 
     }
 
-    const followersText =
+    const followersContent =
         await app.zip.files[followersFile].async("string");
 
-    const followingText =
+    const followingContent =
         await app.zip.files[followingFile].async("string");
 
-    const followersJson = JSON.parse(followersText);
+    const followersJson = JSON.parse(followersContent);
 
-    const followingJson = JSON.parse(followingText);
+    const followingJson = JSON.parse(followingContent);
 
-    app.data.followers = extractUsers(followersJson);
+    app.followers = getUsers(followersJson);
 
-    app.data.following = extractUsers(followingJson);
-
-    calculateResults();
+    app.following = getUsers(followingJson);
 
 }
 
-/* ==========================================
-   EXTRAIR USUÁRIOS
-========================================== */
 
-function extractUsers(data){
+// ===============================
+// EXTRAIR USUÁRIOS
+// ===============================
 
-    const users=[];
+function getUsers(data){
+
+    const users = [];
+
+    if(!Array.isArray(data)) return users;
 
     data.forEach(item=>{
 
@@ -474,16 +182,325 @@ function extractUsers(data){
 
 }
 
-/* ==========================================
-   CALCULAR RESULTADOS
-========================================== */
 
-function calculateResults(){
+// ===============================
+// CALCULAR
+// ===============================
 
-    app.data.notFollowing = app.data.following.filter(user=>{
+function calculate(){
 
-        return !app.data.followers.includes(user);
+    app.notFollowing = app.following.filter(user=>
+
+        !app.followers.includes(user)
+
+    );
+
+}
+
+// ===============================
+// MOSTRAR RESULTADOS
+// ===============================
+
+function render() {
+
+    followersBox.textContent = app.followers.length;
+    followingBox.textContent = app.following.length;
+    notFollowingBox.textContent = app.notFollowing.length;
+
+    renderUserList(app.notFollowing);
+
+}
+
+// ===============================
+// RENDERIZAR LISTA
+// ===============================
+
+function renderUserList(list) {
+
+    userList.innerHTML = "";
+
+    if (list.length === 0) {
+
+        userList.innerHTML = `
+            <div class="user">
+                <span>✨ Nenhum usuário encontrado.</span>
+            </div>
+        `;
+
+        return;
+
+    }
+
+    list.forEach(username => {
+
+        const div = document.createElement("div");
+
+        div.className = "user";
+
+        div.innerHTML = `
+            <span>@${username}</span>
+
+            <button class="remove-btn" onclick="removeUser('${username}', this)">
+                🪄 Remover
+            </button>
+        `;
+
+        userList.appendChild(div);
 
     });
 
 }
+
+// ===============================
+// PESQUISA
+// ===============================
+
+function filterUsers() {
+
+    const text = searchInput.value.toLowerCase();
+
+    const filtered = app.notFollowing.filter(user =>
+        user.toLowerCase().includes(text)
+    );
+
+    renderUserList(filtered);
+
+}
+
+// ===============================
+// REMOVER COM MAGIA
+// ===============================
+
+function removeUser(username, button) {
+
+    const card = button.parentElement;
+
+    card.classList.add("disappear");
+
+    setTimeout(() => {
+
+        app.notFollowing = app.notFollowing.filter(
+            user => user !== username
+        );
+
+        render();
+
+    }, 800);
+
+}
+
+// ===============================
+// COPIAR LISTA
+// ===============================
+
+function copyUsers() {
+
+    navigator.clipboard.writeText(
+        app.notFollowing.join("\n")
+    );
+
+    alert("Lista copiada com sucesso!");
+
+}
+
+// ===============================
+// BAIXAR TXT
+// ===============================
+
+function downloadUsers() {
+
+    const blob = new Blob(
+        [app.notFollowing.join("\n")],
+        { type: "text/plain" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "nao-seguidores.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+}
+
+// ======================================
+// UTILITÁRIOS
+// ======================================
+
+function showOverlay(message = "LUMOS") {
+
+    overlay.classList.remove("hidden");
+
+    magicText.textContent = message;
+
+}
+
+function hideOverlay() {
+
+    overlay.classList.add("hidden");
+
+}
+
+function showError(message) {
+
+    hideOverlay();
+
+    alert(message);
+
+}
+
+
+// ======================================
+// VALIDAÇÕES
+// ======================================
+
+function validateZip() {
+
+    if (!app.zip) {
+
+        showError("Selecione um arquivo ZIP do Instagram.");
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+// ======================================
+// MELHORAR A LEITURA DOS ARQUIVOS
+// ======================================
+
+async function getJsonFile(possibleNames) {
+
+    const files = Object.keys(app.zip.files);
+
+    const file = files.find(name =>
+
+        possibleNames.some(search =>
+
+            name.toLowerCase().includes(search)
+
+        ) && name.endsWith(".json")
+
+    );
+
+    if (!file) return null;
+
+    const content = await app.zip.files[file].async("string");
+
+    return JSON.parse(content);
+
+}
+
+
+// ======================================
+// EFEITO DE MAGIA
+// ======================================
+
+function magicEffect(element) {
+
+    element.animate(
+
+        [
+
+            {
+
+                transform:"scale(1)",
+
+                opacity:1
+
+            },
+
+            {
+
+                transform:"scale(1.2)",
+
+                opacity:.6
+
+            },
+
+            {
+
+                transform:"scale(0)",
+
+                opacity:0
+
+            }
+
+        ],
+
+        {
+
+            duration:800,
+
+            easing:"ease"
+
+        }
+
+    );
+
+}
+
+
+// ======================================
+// REMOVER COM ANIMAÇÃO
+// ======================================
+
+function removeUser(username, button){
+
+    const card = button.parentElement;
+
+    magicEffect(card);
+
+    setTimeout(()=>{
+
+        app.notFollowing = app.notFollowing.filter(
+
+            user => user !== username
+
+        );
+
+        render();
+
+    },800);
+
+}
+
+
+// ======================================
+// INICIALIZAÇÃO
+// ======================================
+
+window.addEventListener("load",()=>{
+
+    result.classList.add("hidden");
+
+    hideOverlay();
+
+});
+
+
+// ======================================
+// FUTURAS FUNÇÕES (V4)
+// ======================================
+
+// Quem deixou de seguir
+
+// Ranking de curtidas
+
+// Ranking de comentários
+
+// Histórico
+
+// Dashboard
+
+// APK Android
+
+console.log("✨ Lumos Follow V3 carregado com sucesso!");
