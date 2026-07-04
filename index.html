@@ -2,22 +2,52 @@
 <html lang="pt-BR">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Lumos Follow</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<title>Lumos Follow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>Lumos Follow</h1>
+<div class="background"></div>
 
-<p>Projeto em desenvolvimento...</p>
+<div class="container">
+
+  <div class="logo">
+      ✨
+  </div>
+
+  <h1>Lumos <span>Follow</span></h1>
+
+  <p class="subtitle">
+      Analise seu Instagram usando o arquivo oficial de dados.
+  </p>
+
+  <div class="upload-box">
+
+      <input
+      type="file"
+      id="zipFile"
+      accept=".zip"
+      hidden>
+
+      <label for="zipFile" class="upload-button">
+
+          📂 Escolher arquivo ZIP
+
+      </label>
+
+  </div>
+
+</div>
 
 <script src="script.js"></script>
 
