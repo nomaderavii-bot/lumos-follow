@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Lumis Follow</title>
-
-<meta name="theme-color" content="#12051f">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -21,299 +14,107 @@
 
 <body>
 
-<!-- Fundo -->
+<!-- FUNDO MÁGICO -->
 <div class="background">
-
-<div class="stars"></div>
-
-<div class="fog"></div>
-
-<div class="particles"></div>
-
+    <div class="fog"></div>
+    <div class="stars"></div>
+    <div class="particles"></div>
 </div>
 
-<!-- Cristal -->
-
-<div class="crystal"></div>
-
-<!-- Conteúdo -->
-
+<!-- APP PRINCIPAL -->
 <main class="app">
 
-<header>
+    <!-- HEADER -->
+    <header class="header">
 
-<div class="logo">
-
-✨
-
-</div>
-
-<h1>
-
-Lumis <span>Follow</span>
-
-</h1>
-
-<p>
-
-A magia revela aquilo que os números escondem.
-
-</p>
-
-</header>
-
-
-
-<section class="magic-card">
-
-<h2>
-
-Revelar Perfil
-
-</h2>
-
-<label>
-
-Nome de usuário
-
-</label>
-
-<input
-
-type="text"
-
-id="username"
-
-placeholder="@seuusuario">
-
-<label>
-
-Arquivo oficial do Instagram
-
-</label>
-
-<input
-
-type="file"
-
-id="zipFile"
-
-accept=".zip">
-
-<div class="warning">
-
-<strong>
-
-FAÇO A MAGIA ACONTECER...
-
-</strong>
-
-<p>
-
-Mas toda ação realizada na sua conta é de sua responsabilidade.
-
-</p>
-
-</div>
-
-<button id="revealButton">
-
-✨ REVELAR
-
-</button>
-
-</section>
-
-<!-- Overlay da Magia -->
-
-<div id="magicOverlay" class="magic-overlay hidden">
-
-    <div class="magic-content">
-
-        <div class="wand">
-
-            🪄
-
+        <div class="logo">
+            ✨
         </div>
 
-        <h2 id="magicWord">
+        <h1>Lumis <span>Follow</span></h1>
 
-            LUMIS
+        <p>Descubra os segredos escondidos no seu Instagram</p>
 
-        </h2>
+    </header>
 
-        <div class="spell-circle"></div>
+    <!-- CARD PRINCIPAL -->
+    <section class="card">
 
-        <div class="loading">
+        <h2>✨ Revelar Perfil</h2>
 
-            <div class="loading-bar">
+        <label>@ Usuário</label>
+        <input type="text" id="username" placeholder="@seuusuario">
 
-                <div id="loadingFill"></div>
+        <label>Arquivo ZIP do Instagram</label>
+        <input type="file" id="zipFile" accept=".zip">
+
+        <div class="warning">
+            <strong>⚠️ Atenção</strong>
+            <p>Faço a magia acontecer, mas a responsabilidade é sua.</p>
+        </div>
+
+        <button id="revealBtn">✨ REVELAR MAGIA</button>
+
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="result hidden" id="result">
+
+        <div class="scroll">
+
+            <h2>✨ Lumis Follow</h2>
+
+            <div class="stats">
+
+                <div>
+                    <h3 id="followers">0</h3>
+                    <p>Seguidores</p>
+                </div>
+
+                <div>
+                    <h3 id="following">0</h3>
+                    <p>Seguindo</p>
+                </div>
+
+                <div>
+                    <h3 id="notFollowing">0</h3>
+                    <p>Não seguem você</p>
+                </div>
 
             </div>
 
-            <p id="loadingText">
+            <div class="search">
+                <input type="text" id="search" placeholder="Pesquisar usuário...">
+            </div>
 
-                Preparando a magia...
+            <div class="list" id="userList">
+                <!-- usuários aparecem aqui -->
+            </div>
 
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Pergaminho -->
-
-<section id="scrollResult" class="scroll hidden">
-
-    <div class="scroll-header">
-
-        <h2>
-
-            ✨ Lumis Follow ✨
-
-        </h2>
-
-        <p>
-
-            A verdade foi revelada...
-
-        </p>
-
-    </div>
-
-    <div class="profile-box">
-
-        <div class="profile-photo">
-
-            👤
+            <div class="actions">
+                <button id="copy">Copiar</button>
+                <button id="download">Baixar TXT</button>
+            </div>
 
         </div>
 
-        <div>
-
-            <h3 id="profileName">
-
-                @usuario
-
-            </h3>
-
-            <span>
-
-                Perfil analisado
-
-            </span>
-
-        </div>
-
-    </div>
-
-    <div class="stats-grid">
-
-        <div class="stat">
-
-            <h3 id="followers">
-
-                0
-
-            </h3>
-
-            <span>
-
-                Seguidores
-
-            </span>
-
-        </div>
-
-        <div class="stat">
-
-            <h3 id="following">
-
-                0
-
-            </h3>
-
-            <span>
-
-                Seguindo
-
-            </span>
-
-        </div>
-
-        <div class="stat">
-
-            <h3 id="notFollowing">
-
-                0
-
-            </h3>
-
-            <span>
-
-                Não seguem você
-
-            </span>
-
-        </div>
-
-    </div>
-  
-
-      <div class="search-box">
-
-        <input
-            type="text"
-            id="searchUser"
-            placeholder="🔎 Pesquisar usuário...">
-
-    </div>
-
-    <div id="userList" class="user-list">
-
-        <div class="empty-list">
-
-            <h3>✨ Nenhum resultado ainda</h3>
-
-            <p>
-                Faça uma análise para revelar os perfis.
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="actions">
-
-        <button id="copyList">
-
-            📋 Copiar Lista
-
-        </button>
-
-        <button id="downloadTxt">
-
-            📄 Baixar TXT
-
-        </button>
-
-        <button id="newAnalysis">
-
-            🔄 Nova Análise
-
-        </button>
-
-    </div>
-
-</section>
+    </section>
 
 </main>
 
+<!-- OVERLAY MAGIA -->
+<div class="overlay hidden" id="overlay">
+
+    <div class="wand">🪄</div>
+
+    <h2 id="magicText">LUMIS</h2>
+
+    <div class="loading"></div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="script.js"></script>
 
 </body>
-
 </html>
