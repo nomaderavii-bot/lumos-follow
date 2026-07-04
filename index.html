@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lumos Follow</title>
+<title>Lumis Follow</title>
+
+<meta name="theme-color" content="#12051f">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 
@@ -18,10 +21,24 @@
 
 <body>
 
-<div class="bg-glow glow1"></div>
-<div class="bg-glow glow2"></div>
+<!-- Fundo -->
+<div class="background">
 
-<div class="container">
+<div class="stars"></div>
+
+<div class="fog"></div>
+
+<div class="particles"></div>
+
+</div>
+
+<!-- Cristal -->
+
+<div class="crystal"></div>
+
+<!-- Conteúdo -->
+
+<main class="app">
 
 <header>
 
@@ -33,210 +50,76 @@
 
 <h1>
 
-Lumos <span>Follow</span>
+Lumis <span>Follow</span>
 
 </h1>
 
 <p>
 
-Descubra quem não segue você de volta utilizando apenas o arquivo oficial do Instagram.
+A magia revela aquilo que os números escondem.
 
 </p>
 
 </header>
 
 
-<section class="upload-card">
+
+<section class="magic-card">
 
 <h2>
 
-Analisar arquivo
+Revelar Perfil
 
 </h2>
 
-<p>
+<label>
 
-Selecione o arquivo ZIP baixado do Instagram.
+Nome de usuário
 
-</p>
+</label>
 
 <input
+
+type="text"
+
+id="username"
+
+placeholder="@seuusuario">
+
+<label>
+
+Arquivo oficial do Instagram
+
+</label>
+
+<input
+
 type="file"
+
 id="zipFile"
-accept=".zip"
-hidden>
 
-<label for="zipFile" class="uploadButton">
+accept=".zip">
 
-📂 Escolher arquivo
+<div class="warning">
 
-</label>
+<strong>
 
-<small>
+FAÇO A MAGIA ACONTECER...
 
-Nenhum login é necessário.
+</strong>
 
-</small>
+<p>
+
+Mas toda ação realizada na sua conta é de sua responsabilidade.
+
+</p>
+
+</div>
+
+<button id="revealButton">
+
+✨ REVELAR
+
+</button>
 
 </section>
-
-
-
-<section class="cards">
-
-<div class="card">
-
-<div class="icon">
-
-👥
-
-</div>
-
-<h3>
-
-Não Seguidores
-
-</h3>
-
-<p>
-
-Veja quem não segue você de volta.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-
-👻
-
-</div>
-
-<h3>
-
-Contas Fantasma
-
-</h3>
-
-<p>
-
-Identifique perfis pouco ativos.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="icon">
-
-📊
-
-</div>
-
-<h3>
-
-Estatísticas
-
-</h3>
-
-<p>
-
-Veja seguidores, seguindo e muito mais.
-
-</p>
-
-</div>
-
-</section>
-
-
-
-<section class="results">
-
-<h2>
-
-Resultados
-
-</h2>
-
-<div class="stats">
-
-<div class="stat">
-
-<span id="followers">
-
-0
-
-</span>
-
-<label>
-
-Seguidores
-
-</label>
-
-</div>
-
-<div class="stat">
-
-<span id="following">
-
-0
-
-</span>
-
-<label>
-
-Seguindo
-
-</label>
-
-</div>
-
-<div class="stat">
-
-<span id="notFollowing">
-
-0
-
-</span>
-
-<label>
-
-Não seguem
-
-</label>
-
-</div>
-
-</div>
-
-<div id="list">
-
-<p>
-
-Sua lista aparecerá aqui...
-
-</p>
-
-</div>
-
-</section>
-
-
-<footer>
-
-🔒 Seus dados são analisados apenas no seu navegador.
-
-</footer>
-
-</div>
-
-<script src="script.js"></script>
-
-</body>
-
-</html>
