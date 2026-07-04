@@ -5,84 +5,112 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>LUMOS FOLLOW</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Lumos Follow</title>
 
 <link rel="stylesheet" href="style.css">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 </head>
 
 <body>
 
+
 <!-- ===========================
 FUNDO MÁGICO
 =========================== -->
 
-<div class="background">
-
 <div class="stars"></div>
 
-<div class="fog"></div>
+<div class="smoke"></div>
 
-<div class="particles">
+<div class="particles"></div>
 
-<span style="left:5%;animation-delay:0s;"></span>
-<span style="left:18%;animation-delay:2s;"></span>
-<span style="left:30%;animation-delay:4s;"></span>
-<span style="left:42%;animation-delay:1s;"></span>
-<span style="left:55%;animation-delay:5s;"></span>
-<span style="left:68%;animation-delay:3s;"></span>
-<span style="left:80%;animation-delay:6s;"></span>
-<span style="left:92%;animation-delay:2.5s;"></span>
+
+<!-- INSTAGRAMS FLUTUANDO -->
+
+<div class="floating-icons">
+
+<i class="fab fa-instagram icon icon1"></i>
+
+<i class="fab fa-instagram icon icon2"></i>
+
+<i class="fab fa-instagram icon icon3"></i>
+
+<i class="fab fa-instagram icon icon4"></i>
+
+<i class="fab fa-instagram icon icon5"></i>
+
+<i class="fab fa-instagram icon icon6"></i>
+
+</div>
+
+
+<!-- VARINHAS -->
+
+<div class="floating-wands">
+
+<div class="wand wand1">🪄</div>
+
+<div class="wand wand2">🪄</div>
+
+<div class="wand wand3">🪄</div>
+
+<div class="wand wand4">🪄</div>
 
 </div>
 
-<!-- OBJETOS FLUTUANDO -->
 
-<div class="magic-object instagram1">📸</div>
+<!-- CHAPÉU -->
 
-<div class="magic-object instagram2">📸</div>
+<div class="hat-glow">
 
-<div class="magic-object wand1">🪄</div>
+<img
 
-<div class="magic-object wand2">🪄</div>
+src="https://i.imgur.com/rF7MylL.png"
 
-<div class="magic-object hat">🎩</div>
+class="sorting-hat"
 
-<div class="magic-object book">📖</div>
-
-<div class="magic-object owl">🦉</div>
-
-<div class="magic-object crystal">💎</div>
+alt="Chapéu Seletor">
 
 </div>
+
+
 
 <!-- ===========================
-APP
+CONTAINER
 =========================== -->
 
-<main class="app">
+<div class="container">
 
-<header class="header">
 
-<div class="logo">
-
-🪄
-
-</div>
+<header>
 
 <h1>
 
+<span class="gold">
+
 LUMOS
 
-<span>
+</span>
+
+<span class="purple">
 
 FOLLOW
 
@@ -92,62 +120,256 @@ FOLLOW
 
 <p>
 
-Descubra os segredos escondidos no seu Instagram.
+Descubra os segredos escondidos no seu Instagram
 
 </p>
 
 </header>
 
+
+
 <section class="card">
+
+<!-- ======================================
+OVERLAY DA MAGIA
+======================================= -->
+
+<div id="overlay" class="overlay hidden">
+
+    <div class="magic-circle"></div>
+
+    <div class="wand-animation">
+
+        🪄
+
+    </div>
+
+    <h2 id="magicText">
+
+        LUMOS
+
+    </h2>
+
+    <p>
+
+        Revelando os segredos do seu Instagram...
+
+    </p>
+
+</div>
+
+
+<!-- ======================================
+RELATÓRIO (COMEÇA ESCONDIDO)
+======================================= -->
+
+<section id="result" class="result hidden">
+
+<div class="scroll">
 
 <h2>
 
-✨ Revelar Perfil
+📜 Relatório do Perfil
 
 </h2>
 
+<div class="stats">
+
+<div class="stat">
+
+<h3 id="followers">
+
+0
+
+</h3>
+
+<span>
+
+Seguidores
+
+</span>
+
+</div>
+
+<div class="stat">
+
+<h3 id="following">
+
+0
+
+</h3>
+
+<span>
+
+Seguindo
+
+</span>
+
+</div>
+
+<div class="stat">
+
+<h3 id="notFollowing">
+
+0
+
+</h3>
+
+<span>
+
+Não seguem você
+
+</span>
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="search"
+
+placeholder="Pesquisar usuário...">
+
+</div>
+
+<div
+
+id="userList"
+
+class="user-list">
+
+</div>
+
+<div class="buttons">
+
+<button id="copy">
+
+📋 Copiar Lista
+
+</button>
+
+<button id="download">
+
+⬇️ Baixar TXT
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="magic-book">
+
+📖
+
+</div>
+
+<p>
+
+LUMOS FOLLOW
+
+</p>
+
+<small>
+
+A magia começa aqui.
+
+</small>
+
+</footer>
+
+<script src="script.js"></script>
+
+</div>
+
+</body>
+
+</html>
+
+
+<h2>
+
+✨ Revelar Perfil ✨
+
+</h2>
+
+
+
 <label>
 
-Nome de usuário
+<i class="fa-regular fa-user"></i>
+
+Usuário
 
 </label>
 
 <input
+
 type="text"
-id="username"
-placeholder="@seuusuario">
+
+placeholder="@seuusuario"
+
+id="username">
+
+
 
 <label>
+
+<i class="fa-regular fa-folder-open"></i>
 
 Arquivo ZIP do Instagram
 
 </label>
 
 <input
+
 type="file"
-id="zipFile"
-accept=".zip">
+
+accept=".zip"
+
+id="zipFile">
+
+
 
 <div class="warning">
 
-<strong>
+<i class="fa-solid fa-triangle-exclamation"></i>
 
-⚠ Atenção
+<div>
 
-</strong>
+<strong>Atenção</strong>
 
 <p>
 
-Faço a magia acontecer,
+Faça a magia acontecer,
+
 mas a responsabilidade é sua.
 
 </p>
 
 </div>
 
+</div>
+
+
+
 <button id="revealBtn">
 
-✨ REVELAR MAGIA
+✨
+
+REVELAR MAGIA
+
+🪄
 
 </button>
 
